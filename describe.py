@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import csv
 import math
-import sys
 from collections import Counter
 from pathlib import Path
 from typing import Iterable
@@ -97,11 +96,13 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    if args.max_cols < 1:
+        raise SystemExit("--max-cols must be at least 1")
+
     if not args.csv.is_file():
         raise SystemExit(f"file not found: {args.csv}")
 
     header, rows = read_csv(args.csv)
-    width = max(len(h) for h in header) if header else 0
     print(f"{args.csv.name} — {len(rows)} data rows, {len(header)} columns")
 
     for i, name in enumerate(header[: args.max_cols]):

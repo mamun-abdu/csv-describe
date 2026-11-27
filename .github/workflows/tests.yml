@@ -21,3 +21,4 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: python -m py_compile describe.py
       - run: python describe.py sample.csv
+      - run: python -m unittest discover -s tests -v
